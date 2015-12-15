@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.Ruunable;
 
-
-public class DayCount implements Runnable {
+public class DayCount {
 	private static final List<String> daysOfWeek = new ArrayList<String>(Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"));
 	private static final int [] monthLengths = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		
+
 	public static void main(String[] args) {
 		int referenceYear = Integer.parseInt(args[0]),
 			referenceMonth = Integer.parseInt(args[1]),
@@ -24,10 +22,8 @@ public class DayCount implements Runnable {
 
 		int count = DayCount.countDays(referenceYear, referenceMonth, referenceDay,
 											  targetYear, targetMonth, targetDay);
-
-		System.out.println("Days between dates: " + count);
-		System.out.println("MOD: " + (count % 7));
-		// System.out.println("That day was a " + daysOfWeek.get(7 + daysOfWeek.indexOf(referenceDayOfWeek.toLowerCase()) - (count % 7)));
+		String dayOfWeekInPast = daysOfWeek.get((daysOfWeek.indexOf(referenceDayOfWeek.toLowerCase()) + (7 - (count % 7))) % 7);
+		System.out.println(count + ((count > 1) ? " days" : " day") + " ago was a " + dayOfWeekInPast);
 	}
 
 	private static int countDays(int referenceYear, int referenceMonth, int referenceDay,
